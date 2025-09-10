@@ -19,6 +19,15 @@ export default [
     },
   },
   {
+    path: '/animals/:id',
+    name: 'animal-card',
+    component: () => import('../views/PageAnimalCard.vue'),
+    props: true,
+    meta: {
+      layout: defaultLayout,
+    },
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/PageLogin.vue'),

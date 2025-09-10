@@ -1,27 +1,50 @@
 import { get, remove, post } from '@/services/api/core';
 import {
   Animal,
-  AnimalBreed,
+  Breed,
   AnimalColor,
-  AnimalFur,
+  Fur,
   AnimalGender,
   AnimalStatus,
-  AnimalType,
+  Species,
   CategoryCode,
+  GuideOptions,
 } from '@/services/api/animal/types';
 
 export const fetchAnimals = async () => get<Animal[]>('/animal');
-
+export const fetchAnimal = async (animalId: number) =>
+  get<Animal>(`/animal/${animalId}`);
 export const createAnimal = async (data: FormData) => post('/animal', data);
 export const deleteAnimal = async (id: number) => remove(`/animal/${id}`);
 
-export const fetchBreeds = async () => get<AnimalBreed[]>('/breed-guide');
-export const fetchAnimalTypes = async () =>
-  get<AnimalType[]>('/type-animal-guide');
-export const fetchFurTypesList = async () => get<AnimalFur[]>('/fur-guide');
+// region Breeds
+export const fetchBreeds = async () => get<Breed[]>('/breed-guide');
+export const fetchBreedOptions = async () =>
+  get<GuideOptions<string>[]>('/breed-guide/options');
+// endregion Breeds
+
+// region Species
+export const fetchSpecies = async () => get<Species[]>('/species-guide');
+export const fetchSpeciesOptions = async () =>
+  get<GuideOptions<string>[]>('/species-guide/options');
+// endregion Species
+
+// region Fur
+export const fetchFurTypesList = async () => get<Fur[]>('/fur-guide');
+export const fetchFurOption = async () =>
+  get<GuideOptions<string>[]>('/fur-guide/options');
+// endregion Fur
+
+// region Color
 export const fetchColorTypesList = async () =>
   get<AnimalColor[]>('/color-guide');
+export const fetchColorOptions = async () =>
+  get<GuideOptions<string>[]>('/color-guide/options');
+// endregion Color
+
 //-----
+
+// category code
 export const categoryCodeText = (code: CategoryCode) => {
   switch (code) {
     case CategoryCode.NewCat:
@@ -46,6 +69,7 @@ export const CATEGORY_CODES = [
   },
 ];
 
+// animal gender
 export const animalGenderText = (gender: AnimalGender) => {
   switch (gender) {
     case AnimalGender.Male:
@@ -70,6 +94,7 @@ export const ANIMAL_GENDERS = [
   },
 ];
 
+// animal status
 export const animalStatusText = (status: AnimalStatus) => {
   switch (status) {
     case AnimalStatus.FindingOwner:
